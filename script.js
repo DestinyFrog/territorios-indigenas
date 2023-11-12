@@ -14,9 +14,13 @@ class Area {
 	}
 
 	drawArea(map) {
-		L.polygon( this.land.coordinates )
-		.setStyle( this.land.style )
-		.addTo(map)
+		if ( Array.isArray( this.land.coordinates ) ) {
+			L.polygon( this.land.coordinates )
+			.setStyle( this.land.style )
+			.addTo(map)
+		} else {
+			
+		}
 	}
 
 	drawPopup(map) {
@@ -36,8 +40,11 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 	attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map)
 
+var arr = []
 map.on('click', (e) => {
-	console.log( e.latlng )
+	var pos = [ e.latlng.lat, e.latlng.lng ]
+	arr.push( pos )
+	console.log( arr )
 })
 
 map.flyTo(
