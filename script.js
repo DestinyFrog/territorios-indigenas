@@ -33,7 +33,7 @@ class Area {
 var areas = null
 
 var map = L.map('map').setView([0,0], 5)
-var nav = document.getElementById("navegar")
+const selector = document.getElementById("nav-ling")
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 	maxZoom: 19,
@@ -44,7 +44,11 @@ var arr = []
 map.on('click', (e) => {
 	var pos = [ e.latlng.lat, e.latlng.lng ]
 	arr.push( pos )
-	console.log( arr )
+
+	text = ""
+	arr.forEach( ([la,ln]) =>
+		text += `[${la},${ln}],\n` )
+	console.log( text )
 })
 
 map.flyTo(
@@ -59,10 +63,12 @@ fetch("./script.json")
 
 	areas.forEach( (e,idx) => {
 		e.drawArea(map)
-		// e.drawPopup(map)
-		nav.innerHTML += `<ul onclick="moveit(${idx})">${e.nome}</ul>`
+		selector.innerHTML += `<option value="${idx}">${e.nome}</option>`
 	} )
 } )
+
+document.getElementById("selector").addEventListener('change', (ev) =>
+	moveit( ev.target.value ) )
 
 function moveit(id) {
 	areas[id].goto(map)
