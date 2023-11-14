@@ -35,10 +35,36 @@ var areas = null
 var map = L.map('map').setView([0,0], 5)
 const selector = document.getElementById("nav-ling")
 
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-	maxZoom: 19,
-	attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-}).addTo(map)
+var idx_mapa_escolhido = 0
+
+var mapas = [
+	L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 19,attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'}),
+	L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{  attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community' }),
+	L.tileLayer('https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer/tile/{z}/{y}/{x}', {maxZoom: 20,attribution: 'Tiles courtesy of the <a href="https://usgs.gov/">U.S. Geological Survey</a>'}),
+	L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png', {attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',subdomains: 'abcd',maxZoom: 20}),
+
+]
+
+var mapa_atual = mapas[idx_mapa_escolhido]
+map.addLayer( mapa_atual )
+
+document.body.addEventListener('keydown', ev => {
+	if ( ev.key == 's' )
+		idx_mapa_escolhido++
+	else if ( ev.key == 'a' )
+		idx_mapa_escolhido--
+	else return
+
+	if ( idx_mapa_escolhido >= mapas.length )
+		idx_mapa_escolhido = 0
+
+	if ( idx_mapa_escolhido < 0 )
+		idx_mapa_escolhido = mapas.length - 1
+
+	map.removeLayer( mapa_atual )
+	mapa_atual = mapas[idx_mapa_escolhido]
+	map.addLayer( mapa_atual )
+} )
 
 var arr = []
 map.on('click', (e) => {
