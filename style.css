@@ -34,6 +34,18 @@ body {
 	align-items: center;
 }
 
+#navegar #changemap-box {
+	width: 100px;
+	height: 50px;
+
+	display: flex;
+}
+
+#navegar #changemap-box button {
+	width: 50%;
+	height: 100%;
+}
+
 #navegar select {
 	border: 1px solid black;
 	padding: 3px;
@@ -56,5 +68,7 @@ body {
 	#navegar {
 		width: 100vw;
 		height: 100px;
+
+		flex-direction: row;
 	}
 }
