@@ -75,10 +75,7 @@ map.on('click', (e) => {
 	console.log( text )
 })
 
-map.flyTo(
-	[ -15.7, -47.8 ],
-	3
-)
+map.flyTo( [ -15.7, -47.8 ], 3 )
 
 fetch("./script.json")
 .then( response => response.json() )
@@ -91,8 +88,14 @@ fetch("./script.json")
 	} )
 } )
 
-document.getElementById("selector").addEventListener('change', (ev) =>
-	moveit( ev.target.value ) )
+document.getElementById("selector").addEventListener('change', (ev) => {
+	if ( ev.target.value == "||" ) {
+		map.flyTo( [ -15.7, -47.8 ], 3 )
+		return
+	}
+
+	moveit( ev.target.value )
+})
 
 function moveit(id) {
 	areas[id].goto(map)
