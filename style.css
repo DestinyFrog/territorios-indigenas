@@ -18,15 +18,15 @@ body {
 	background-color: crimson;
 }
 
-#navegar {
+header {
 	position: relative;
 	top: 0;
 	left: 0;
 
-	width: 300px;
+	width: 200px;
 	height: 100%;
 
-	background-color: crimson;
+	background-color: black;
 
 	display: flex;
 	flex-direction: column;
@@ -34,19 +34,19 @@ body {
 	align-items: center;
 }
 
-#navegar #changemap-box {
+header #changemap-box {
 	width: 100px;
 	height: 50px;
 
 	display: flex;
 }
 
-#navegar #changemap-box button {
+header #changemap-box button {
 	width: 50%;
-	height: 100%;
+	aspect-ratio: 1/1;
 }
 
-#navegar select {
+header select {
 	border: 1px solid black;
 	padding: 3px;
 
@@ -60,14 +60,46 @@ body {
 	border: 1px solid black;
 }
 
+ul {
+	list-style: none;
+
+	z-index: 9999;
+	width: 170px;
+
+	position: fixed;
+	left: 100%;
+	bottom: 20px;
+	transform: translate( -100%, 0% );
+
+	background-color: black;
+	border: 1px solid black;
+	padding: 10px;
+	border-radius: 2px;
+}
+
+li {
+	display: flex;
+	/* justify-content: center; */
+	align-items: center;
+	border-bottom: 1px solid rgba( 255,255,255,0.3 );
+	color: aliceblue;
+}
+
+.ball {
+	margin-right: 5px;
+	width:10px;
+	height:10px;
+	border-radius:5px;
+}
+
 @media only screen and (max-width:600px) {
 	body {
 		flex-direction: column;
 	}
 
-	#navegar {
+	header {
 		width: 100vw;
-		height: 100px;
+		height: 50px;
 
 		flex-direction: row;
 	}

@@ -26,6 +26,8 @@ var areas = null
 
 var markers = new L.FeatureGroup();
 var map = L.map('map').setView([0,0], 5)
+
+const lista_povos = document.getElementById( "lista-povos" )
 const selector = document.getElementById("nav-ling")
 
 var idx_mapa_escolhido = 0
@@ -80,18 +82,22 @@ fetch("./script.json")
 		e.drawArea(map,markers)
 		// e.drawPopup(map)
 		selector.innerHTML += `<option value="${idx}">${e.nome}</option>`
+		lista_povos.innerHTML += `<li onclick="moveit( ${idx} )">
+			<div class="ball" style="background-color:${e.land.style.color};"></div>${e.nome}</li>`
 	} )
 } )
 
 document.getElementById("selector").addEventListener('change', (ev) => {
-	if ( ev.target.value == "||" ) {
-		map.flyTo( [ -15.7, -47.8 ], 4 )
-		return
-	}
-
 	moveit( ev.target.value )
 })
 
 function moveit(id) {
+	if ( id == "||" ) {
+		map.flyTo( [ -15.7, -47.8 ], 4 )
+		return
+	}
+
 	areas[id].goto(map)
 }
+
+

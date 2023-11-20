@@ -17,7 +17,7 @@
 </head>
 
 <body>
-	<nav id="navegar">
+	<header>
 		<section id="changemap-box">
 			<button onclick="changeMap(-1)">&lt;</button>
 			<button onclick="changeMap(1)">&gt;</button>
@@ -27,7 +27,9 @@
 			<option value="||">América Do Sul</option>
 			<optgroup id="nav-ling" label="Grupos Linguísticos"></optgroup>
 		</select>
-	</nav>
+	</header>
+
+	<ul id="lista-povos"></ul>
 
 	<div id="map"></div>
 	<script src="./script.js"></script>
