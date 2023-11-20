@@ -4,6 +4,7 @@ class Area {
 		this.nome = e.nome
 		this.land = e.land
 		this.mark = e.mark
+		this.p = null
 	}
 
 	goto(map) {
@@ -13,25 +14,17 @@ class Area {
 		)
 	}
 
-	drawArea(map) {
-		if ( Array.isArray( this.land.coordinates ) ) {
-			L.polygon( this.land.coordinates )
-			.setStyle( this.land.style )
-			.addTo(map)
-		} else {
-			
-		}
-	}
-
-	drawPopup(map) {
-		L.popup(this.mark.coordinates, {content: this.nome})
-		.openOn(map)
+	drawArea(map,mo) {
+		L.polygon( this.land.coordinates )
+		.setStyle( this.land.style )
+		.addTo(map)
 	}
 
 }
 
 var areas = null
 
+var markers = new L.FeatureGroup();
 var map = L.map('map').setView([0,0], 5)
 const selector = document.getElementById("nav-ling")
 
@@ -46,6 +39,7 @@ var mapas = [
 
 var mapa_atual = mapas[idx_mapa_escolhido]
 map.addLayer( mapa_atual )
+map.addLayer( markers )
 
 function changeMap( dir ) {
 	idx_mapa_escolhido += dir
@@ -83,7 +77,8 @@ fetch("./script.json")
 	areas = data.map( e => new Area(e) )
 
 	areas.forEach( (e,idx) => {
-		e.drawArea(map)
+		e.drawArea(map,markers)
+		// e.drawPopup(map)
 		selector.innerHTML += `<option value="${idx}">${e.nome}</option>`
 	} )
 } )
